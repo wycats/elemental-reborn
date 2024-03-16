@@ -24,9 +24,10 @@ async function ensureDefaultElement(id: number, name: string, color: ElementColo
 
 config();
 
-const PROD_URL = `mongodb+srv://hparcells:${process.env.DATABASE_PASSWORD}@elementalreborncluster-b2kc5.mongodb.net/test?retryWrites=true&w=majority`;
+// const PROD_URL = `mongodb+srv://hparcells:${process.env.DATABASE_PASSWORD}@elementalreborncluster-b2kc5.mongodb.net/test?retryWrites=true&w=majority`;
 // const DEV_URL = `mongodb+srv://hparcells:${process.env.DATABASE_PASSWORD}@elementalreborncluster.oqvwn.mongodb.net/test?retryWrites=true&w=majority`;
 const DEV_URL = `mongodb+srv://wycats:${process.env.DATABASE_PASSWORD}@elements.4fu5avm.mongodb.net/?retryWrites=true&w=majority&appName=Elements`;
+const PROD_URL = `mongodb+srv://wycats:${process.env.DATABASE_PASSWORD}@elements.4fu5avm.mongodb.net/?retryWrites=true&w=majority&appName=Elements`;
 
 export function setupDatabase() {
   let client: MongoClient;
