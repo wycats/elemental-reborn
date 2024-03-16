@@ -5,6 +5,7 @@ import { ElementColor } from '../../shared/types';
 
 import { elementExists } from './elements';
 import { dbLog } from '../../util/logger';
+import { config } from 'dotenv';
 
 export let database: Db;
 
@@ -20,20 +21,21 @@ async function ensureDefaultElement(id: number, name: string, color: ElementColo
     });
   }
 }
+
+config();
+
+const PROD_URL = `mongodb+srv://hparcells:${process.env.DATABASE_PASSWORD}@elementalreborncluster-b2kc5.mongodb.net/test?retryWrites=true&w=majority`;
+// const DEV_URL = `mongodb+srv://hparcells:${process.env.DATABASE_PASSWORD}@elementalreborncluster.oqvwn.mongodb.net/test?retryWrites=true&w=majority`;
+const DEV_URL = `mongodb+srv://wycats:${process.env.DATABASE_PASSWORD}@elements.4fu5avm.mongodb.net/?retryWrites=true&w=majority&appName=Elements`;
+
 export function setupDatabase() {
   let client: MongoClient;
 
   if (process.env.NODE_ENV === 'production') {
-    client = new MongoClient(
-      `mongodb+srv://hparcells:${process.env.DATABASE_PASSWORD}@elementalreborncluster-b2kc5.mongodb.net/test?retryWrites=true&w=majority`,
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    );
+    client = new MongoClient(PROD_URL, { useNewUrlParser: true, useUnifiedTopology: true });
     dbLog('Connected into the production database.');
   } else {
-    client = new MongoClient(
-      `mongodb+srv://hparcells:${process.env.DATABASE_PASSWORD}@elementalreborncluster.oqvwn.mongodb.net/test?retryWrites=true&w=majority`,
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    );
+    client = new MongoClient(DEV_URL, { useNewUrlParser: true, useUnifiedTopology: true });
     dbLog('Connected into the development database.');
   }
 
